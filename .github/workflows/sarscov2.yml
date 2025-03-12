@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Cecret
         run: |
-          nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads -with-tower -resume
+          nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads
 
       - name: Check results
         run: cat cecret/cecret_results.csv
