@@ -1,0 +1,6 @@
+# Step 1 : get fasta file
+# copied SARS-CoV-2 reference file and changed name
+# Step 2 : create primer scheme for it
+# took the first 10 amplicons and adjusted reference
+# Step 3 : align to smaller referce
+# copied to data/vampirism

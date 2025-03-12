@@ -1,0 +1,8 @@
+SRR25097745,test1
+SRR25097746,test2
+SRR25097747,test3
+# Artic v5.3.2 primers
+#fasterq-dump -A ${SRA} --split-files
+#bwa mem -t 12 MN908947.3.fasta ${SRA}* > ${sample}_aligned.sam
+#for sample in test1 test2 test3 ; do samtools sort -n -@ 12 ${sample}_aligned.sam | samtools fastq -F 4 -s ${sample}_unpaaired.fastq.gz -1 ${sample}_1.fastq.gz -2 ${sample}_2.fastq.gz ; done
+#for sample in test1 test2 test3 ; do  bbnorm.sh target=200 min=5 in=${sample}_1.fastq.gz in2=${sample}_2.fastq.gz out=${sample}_norm_1.fastq.gz out2=${sample}_norm_2.fastq.gz; done
