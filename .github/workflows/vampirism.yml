@@ -1,0 +1,42 @@
+name: Run vampirism
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nextflow
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+
+      - name: Download reads
+        run: |
+            mkdir reads
+            cd reads
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/test1_R1.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/test1_R2.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/test2_R1.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/test2_R2.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/test3_R1.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/test3_R2.fastq.gz
+            cd ../
+
+      - name: get reference files
+        run: |
+            # the reference sequence
+            wget https://raw.githubusercontent.com/erinyoung/cecret_test_data/refs/heads/main/data/vampirism/reference.fasta
+            # the primer bedfile
+            wget https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/vampirism/primer.bed
+
+      - name: download config file
+        run: wget https://github.com/UPHL-BioNGS/Cecret/raw/refs/heads/master/.github/workflows/github_actions.config
+
+      - name: Run Cecret
+        run: |
+            nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads --reference_genome reference.fasta --primer_bed primer.bed --species other -c github_actions.config
+
+      - name: Check results
+        run: cat cecret/cecret_results.csv

@@ -1,0 +1,43 @@
+name: Run SARS-CoV-2 with kraken2 database
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nextflow
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+
+      - name: Download reads
+        run: |
+          mkdir reads
+          cd reads
+          for sample in test1 test2 test3
+          do
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/sarscov2/${sample}_1.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/sarscov2/${sample}_2.fastq.gz
+          done
+          cd ../
+
+      - name: Get Kraken2 database
+        run: |
+            mkdir kraken2_db
+            cd kraken2_db
+            wget https://genome-idx.s3.amazonaws.com/kraken/k2_viral_20241228.tar.gz
+            tar -zxvf k2_viral_20241228.tar.gz
+            cd ../
+
+      - name: download config file
+        run: wget https://github.com/UPHL-BioNGS/Cecret/raw/refs/heads/master/.github/workflows/github_actions.config
+
+      - name: Run Cecret
+        run: |
+          nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads --kraken2_db kraken2_db -c github_actions.config
+
+      - name: Check results
+        run: cat cecret/cecret_results.csv
+

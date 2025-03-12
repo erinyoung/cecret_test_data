@@ -11,6 +11,7 @@ jobs:
         run: |
           wget -qO- get.nextflow.io | bash
           sudo mv nextflow /usr/local/bin/
+
       - name: Download reads
         run: |
           mkdir reads
@@ -22,9 +23,12 @@ jobs:
           done
           cd ../
 
+      - name: download config file
+        run: wget https://github.com/UPHL-BioNGS/Cecret/raw/refs/heads/master/.github/workflows/github_actions.config
+
       - name: Run Cecret
         run: |
-          nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads
+          nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads -c github_actions.config
 
       - name: Check results
         run: cat cecret/cecret_results.csv
