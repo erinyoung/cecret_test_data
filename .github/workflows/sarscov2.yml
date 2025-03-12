@@ -1,0 +1,29 @@
+name: Run SARS-CoV-2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nextflow
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+      - name: Download reads
+        run: |
+          mkdir reads
+          cd reads
+          for sample in test1 test2 test3
+          do
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/sarscov2/${sample}_1.fastq.gz
+            wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/sarscov2/${sample}_2.fastq.gz
+          done
+
+      - name: Run Cecret
+        run: |
+          nextflow run UPHL-BioNGS/Cecret -profile docker --reads norm -with-tower -resume
+
+      - name: Check results
+        run: cat cecret/cecret_results.csv
