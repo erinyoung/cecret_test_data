@@ -1,0 +1,4 @@
+sample,fastq_1,fastq_2
+test1,reads/test1_1.fastq.gz,reads/test1_2.fastq.gz
+test2,reads/test2_1.fastq.gz,reads/test2_2.fastq.gz
+test3,reads/test3_1.fastq.gz,reads/test3_2.fastq.gz
