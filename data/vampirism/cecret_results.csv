@@ -1,0 +1,4 @@
+sample_id,sample,fasta_line,fastqc_raw_reads_1,fastqc_raw_reads_2,num_N,num_total,seqyclean_PairsKept,seqyclean_Perc_Kept,num_pos_100X,insert_size_after_trimming,bcftools_variants_identified,samtools_meandepth_after_trimming,samtools_per_1X_coverage_after_trimming,Cecret version,seqyclean,bwa,ivar,ivar consensus
+test1,test1,test1,5764.0,5764.0,0,3222,5681.0,98.56,3222,138.2,6,373.412,97.6364,v3.26.25063,1.10.09_(2018-10-16),0.7.18-r1243-dirty,1.4.3,1.4.3
+test2,test2,test2,5726.0,5726.0,76,3298,5637.0,98.4457,3222,140.3,8,372.162,99.9091,v3.26.25063,1.10.09_(2018-10-16),0.7.18-r1243-dirty,1.4.3,1.4.3
+test3,test3,test3,2989.0,2989.0,1097,3213,2958.0,98.9629,2116,178.1,10,222.273,95.8485,v3.26.25063,1.10.09_(2018-10-16),0.7.18-r1243-dirty,1.4.3,1.4.3
