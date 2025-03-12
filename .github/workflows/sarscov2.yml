@@ -20,10 +20,11 @@ jobs:
             wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/sarscov2/${sample}_1.fastq.gz
             wget -q https://github.com/erinyoung/cecret_test_data/raw/refs/heads/main/data/sarscov2/${sample}_2.fastq.gz
           done
+          cd ../
 
       - name: Run Cecret
         run: |
-          nextflow run UPHL-BioNGS/Cecret -profile docker --reads norm -with-tower -resume
+          nextflow run UPHL-BioNGS/Cecret -profile docker --reads reads -with-tower -resume
 
       - name: Check results
         run: cat cecret/cecret_results.csv
